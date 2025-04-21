@@ -1,0 +1,11 @@
+import product from './product'
+import category from './category'
+import recipe from './recipe'
+import blockContent from './blockContent'
+
+export const schemaTypes = [
+  product,
+  category,
+  recipe,
+  blockContent
+]
