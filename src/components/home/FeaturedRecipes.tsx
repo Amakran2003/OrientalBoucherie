@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getFeaturedRecipes } from '../../lib/sanityApi';
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { getFeaturedRecipes } from '../../lib/apiUtils';
 import { Recipe } from '../../lib/sanityApi';
 import { urlFor } from '../../lib/sanity';
-import { motion } from 'framer-motion';
 
 export default function FeaturedRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);

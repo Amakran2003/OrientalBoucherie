@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { productCategories } from '../../data';
+import { useCategories } from '../../hooks/products/useCategories';
 import Button from '../ui/Button';
+import LoadingIndicator from '../ui/LoadingIndicator';
+import { urlFor } from '../../lib/sanity';
+
+// Use a much simpler and smaller base64 placeholder - just a gray square
+const PLACEHOLDER_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
 const ProductCategories: React.FC = () => {
   const { t } = useTranslation();
+  const { categories, loading } = useCategories();
+  // Track images that are loading or have failed
+  const [imageStatus, setImageStatus] = useState<Record<string, 'loading' | 'loaded' | 'error'>>({});
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -27,6 +35,17 @@ const ProductCategories: React.FC = () => {
   const arrowVariants = {
     rest: { x: 0 },
     hover: { x: 5, transition: { type: "spring", stiffness: 400 } }
+  };
+
+  // Handle image loading state
+  const handleImageLoad = (categoryId: string) => {
+    setImageStatus(prev => ({ ...prev, [categoryId]: 'loaded' }));
+  };
+
+  // Handle image error state
+  const handleImageError = (categoryId: string, e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    setImageStatus(prev => ({ ...prev, [categoryId]: 'error' }));
+    (e.target as HTMLImageElement).src = PLACEHOLDER_IMAGE;
   };
 
   return (
@@ -53,54 +72,81 @@ const ProductCategories: React.FC = () => {
           </motion.p>
         </div>
 
-        <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {productCategories.map((category) => (
-            <motion.div
-              key={category.id}
-              variants={itemVariants}
-              className="card group hover:shadow-xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-shadow duration-300"
-            >
-              <div className="relative overflow-hidden aspect-[4/3]">
-                <img 
-                  src="https://www.scherrer-chezlaety.fr/wp-content/uploads/2023/05/viande-locale_1-1024x675.jpg"
-                  alt={category.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 text-secondary-900 dark:text-white">
-                  {category.name}
-                </h3>
-                <p className="text-secondary-700 dark:text-secondary-300 mb-4">
-                  {category.description}
-                </p>
-                <motion.div
-                  initial="rest"
-                  whileHover="hover"
-                  animate="rest"
-                  className="inline-block"
-                >
-                  <Link 
-                    to={`/products/${category.id}`}
-                    className="inline-flex items-center text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+        {loading ? (
+          <div className="py-12 flex justify-center">
+            <LoadingIndicator size="lg" />
+          </div>
+        ) : (
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {categories.map((category) => (
+              <motion.div
+                key={category._id}
+                variants={itemVariants}
+                className="card group hover:shadow-xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-shadow duration-300"
+              >
+                <div className="relative overflow-hidden aspect-[4/3]">
+                  {/* Add preloading placeholder and loading state */}
+                  <div className={`absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center transition-opacity duration-300 ${imageStatus[category._id] === 'loaded' ? 'opacity-0' : 'opacity-100'}`}>
+                    {imageStatus[category._id] !== 'error' && (
+                      <div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+                    )}
+                  </div>
+                  
+                  {category.image ? (
+                    <img 
+                      src={urlFor(category.image).width(800).height(600).url()}
+                      alt={category.title} 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      onLoad={() => handleImageLoad(category._id)}
+                      onError={(e) => handleImageError(category._id, e)}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <img 
+                      src={`/images/categories/${category.slug.current}.jpg`} 
+                      alt={category.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      onLoad={() => handleImageLoad(category._id)}
+                      onError={(e) => handleImageError(category._id, e)}
+                      loading="lazy"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70"></div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2 text-secondary-900 dark:text-white">
+                    {category.title}
+                  </h3>
+                  <p className="text-secondary-700 dark:text-secondary-300 mb-4">
+                    {category.description}
+                  </p>
+                  <motion.div
+                    initial="rest"
+                    whileHover="hover"
+                    animate="rest"
+                    className="inline-block"
                   >
-                    Voir les produits 
-                    <motion.span variants={arrowVariants}>
-                      <ArrowRight size={16} className="ml-1" />
-                    </motion.span>
-                  </Link>
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                    <Link 
+                      to={`/products/${category.slug.current}`}
+                      className="inline-flex items-center text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+                    >
+                      Voir les produits 
+                      <motion.span variants={arrowVariants}>
+                        <ArrowRight size={16} className="ml-1" />
+                      </motion.span>
+                    </Link>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
 
         <div className="text-center mt-12">
           <Link to="/products">

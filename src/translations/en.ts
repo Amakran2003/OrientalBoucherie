@@ -3,13 +3,12 @@ export default {
     'nav.home': 'Home',
     'nav.about': 'About Us',
     'nav.products': 'Our Products',
-    'nav.shop': 'Shop',
-    'nav.commitments': 'Commitments',
+    'nav.testimonials': 'Testimonials',
     'nav.recipes': 'Recipes',
     'nav.contact': 'Contact',
     
     'home.hero.title': 'L\'Oriental Boucherie by Aziz',
-    'home.hero.subtitle': 'Your traditional halal butcher shop in Vierzon for 8 years',
+    'home.hero.subtitle': 'Your traditional halal butcher shop in Vierzon since 2009',
     'home.hero.cta': 'Discover Our Products',
     
     'home.intro.title': 'Welcome to L\'Oriental Boucherie',

@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { getFeaturedProducts } from '../../lib/sanityApi';
+import { getFeaturedProducts } from '../../lib/apiUtils';
 import { Product } from '../../lib/sanityApi';
 import { urlFor } from '../../lib/sanity';
-import { motion } from 'framer-motion';
+
+// Simple loading component for product images
+const ImageLoader = () => (
+  <div className="h-56 bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+);
 
 export default function FeaturedProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [imgLoaded, setImgLoaded] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,6 +30,10 @@ export default function FeaturedProducts() {
 
     fetchProducts();
   }, []);
+
+  const handleImageLoaded = (id: string) => {
+    setImgLoaded((prev) => ({ ...prev, [id]: true }));
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -82,12 +92,19 @@ export default function FeaturedProducts() {
               className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
             >
               {product.image ? (
-                <div className="h-56 overflow-hidden">
+                <div className="h-56 overflow-hidden bg-gray-100 dark:bg-gray-700">
                   <img
-                    src={urlFor(product.image).width(600).height(400).url()}
+                    src={urlFor(product.image).width(600).height(400).auto('format').quality(80).url()}
                     alt={product.name}
-                    className="w-full h-full object-cover transition-transform hover:scale-105"
+                    loading="lazy"
+                    className={`w-full h-full object-cover transition-transform ${
+                      imgLoaded[product._id] ? 'hover:scale-105' : 'opacity-0'
+                    }`}
+                    onLoad={() => handleImageLoaded(product._id)}
+                    width="600"
+                    height="400"
                   />
+                  {!imgLoaded[product._id] && <ImageLoader />}
                 </div>
               ) : (
                 <div className="h-56 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">

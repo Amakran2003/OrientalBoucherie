@@ -3,8 +3,7 @@ export default {
     'nav.home': 'Inicio',
     'nav.about': 'Sobre Nosotros',
     'nav.products': 'Nuestros Productos',
-    'nav.shop': 'Tienda',
-    'nav.commitments': 'Compromisos',
+    'nav.testimonials': 'Testimonios',
     'nav.recipes': 'Recetas',
     'nav.contact': 'Contacto',
     

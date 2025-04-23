@@ -66,6 +66,11 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/testimonials" className="text-secondary-300 hover:text-primary-500 transition-colors duration-300">
+                  {t('nav.testimonials')}
+                </Link>
+              </li>
+              <li>
                 <Link to="/recipes" className="text-secondary-300 hover:text-primary-500 transition-colors duration-300">
                   {t('nav.recipes')}
                 </Link>
@@ -113,6 +118,11 @@ const Footer: React.FC = () => {
                 </li>
               ))}
             </ul>
+            {siteConfig.businessHoursNote && (
+              <p className="mt-3 text-xs text-secondary-400 italic">
+                {siteConfig.businessHoursNote}
+              </p>
+            )}
           </div>
         </div>
 

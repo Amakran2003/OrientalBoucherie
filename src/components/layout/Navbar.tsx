@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
     { to: '/', name: t('nav.home') },
     { to: '/about', name: t('nav.about') },
     { to: '/products', name: t('nav.products') },
-    { to: '/commitments', name: t('nav.commitments') },
+    { to: '/testimonials', name: t('nav.testimonials') },
     { to: '/recipes', name: t('nav.recipes') },
     { to: '/contact', name: t('nav.contact') },
   ];

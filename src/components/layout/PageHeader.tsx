@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 
 type PageHeaderProps = {
   title: string;
-  subtitle?: string;
+  description?: string;
   backgroundImage?: string;
 };
 
 const PageHeader: React.FC<PageHeaderProps> = ({ 
   title, 
-  subtitle,
+  description,
   backgroundImage = 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg',
 }) => {
   return (
@@ -28,14 +28,14 @@ const PageHeader: React.FC<PageHeaderProps> = ({
         >
           {title}
         </motion.h1>
-        {subtitle && (
+        {description && (
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="max-w-2xl mx-auto text-lg md:text-xl text-white/90"
           >
-            {subtitle}
+            {description}
           </motion.p>
         )}
       </div>

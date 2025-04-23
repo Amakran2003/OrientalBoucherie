@@ -61,36 +61,13 @@ export default defineType({
       name: 'ingredients',
       title: 'Ingrédients',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {name: 'ingredient', title: 'Ingrédient', type: 'string'},
-            {name: 'amount', title: 'Quantité', type: 'string'},
-          ],
-          preview: {
-            select: {
-              title: 'ingredient',
-              subtitle: 'amount',
-            },
-          },
-        },
-      ],
+      of: [{type: 'ingredient'}], // Use the ingredient type instead of an inline object
     }),
     defineField({
       name: 'steps',
       title: 'Étapes de Préparation',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {name: 'title', title: 'Titre', type: 'string'},
-            {name: 'description', title: 'Description', type: 'blockContent'},
-            {name: 'image', title: 'Image', type: 'image', options: {hotspot: true}},
-          ],
-        },
-      ],
+      of: [{type: 'step'}], // Use the step type instead of an inline object
     }),
     defineField({
       name: 'description',

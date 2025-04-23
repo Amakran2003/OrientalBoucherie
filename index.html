@@ -4,8 +4,43 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Meta information for performance -->
     <title>L'Oriental Boucherie par Aziz - Vierzon</title>
     <meta name="description" content="Votre boucherie traditionnelle à Vierzon depuis 8 ans, dirigée par Aziz. Viande halal de qualité supérieure." />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/images/hero.webp" as="image" type="image/webp" fetchpriority="high" />
+    <link rel="preload" href="/@fontsource/playfair-display/files/playfair-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/@fontsource/inter/files/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+    <link rel="preconnect" href="https://rrwhrsep.apicdn.sanity.io" crossorigin />
+    <link rel="dns-prefetch" href="https://rrwhrsep.apicdn.sanity.io" />
+    <link rel="preconnect" href="https://www.datocms-assets.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.datocms-assets.com" />
+    <link rel="dns-prefetch" href="https://sanity.io" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    
+    <!-- Performance optimization hints -->
+    <meta http-equiv="Cache-Control" content="max-age=1800" />
+    <link rel="modulepreload" href="/src/main.tsx" />
+
+    <!-- Suppress font rendering delays to improve LCP -->
+    <style>
+      /* High priority elements in the hero section */
+      h1, .lcp-priority {
+        display: block;
+      }
+
+      /* Ensure text is visible during webfont load */
+      html {
+        font-display: swap;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
