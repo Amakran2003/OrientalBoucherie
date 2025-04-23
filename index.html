@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/OrientalBoucherie/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Meta information for performance -->
@@ -25,9 +25,7 @@
     </script>
     
     <!-- Preload critical resources -->
-    <link rel="preload" href="/OrientalBoucherie/images/hero.webp" as="image" type="image/webp" fetchpriority="high" />
-    <link rel="preload" href="/@fontsource/playfair-display/files/playfair-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/@fontsource/inter/files/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./images/hero.webp" as="image" type="image/webp" fetchpriority="high" />
     
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
@@ -42,7 +40,6 @@
     
     <!-- Performance optimization hints -->
     <meta http-equiv="Cache-Control" content="max-age=1800" />
-    <link rel="modulepreload" href="data:application/octet-stream;base64,aW1wb3J0IHsgU3RyaWN0TW9kZSB9IGZyb20gJ3JlYWN0JzsKaW1wb3J0IHsgY3JlYXRlUm9vdCB9IGZyb20gJ3JlYWN0LWRvbS9jbGllbnQnOwppbXBvcnQgeyBSb3V0ZXJQcm92aWRlciB9IGZyb20gJ3JlYWN0LXJvdXRlci1kb20nOwppbXBvcnQgcm91dGVyIGZyb20gJy4vcm91dGVzL3JvdXRlcic7CmltcG9ydCAnLi90cmFuc2xhdGlvbnMvaTE4bic7CmltcG9ydCAnLi9pbmRleC5jc3MnOwoKY3JlYXRlUm9vdChkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncm9vdCcpISkucmVuZGVyKAogIDxTdHJpY3RNb2RlPgogICAgPFJvdXRlclByb3ZpZGVyIHJvdXRlcj17cm91dGVyfSAvPgogIDwvU3RyaWN0TW9kZT4KKTs=" />
 
     <!-- Suppress font rendering delays to improve LCP -->
     <style>
@@ -55,13 +52,20 @@
       html {
         font-display: swap;
       }
+
+      /* System font fallbacks */
+      body {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      }
     </style>
-    <script type="module" crossorigin src="/OrientalBoucherie/assets/index.DTCIXa60.js"></script>
-    <link rel="modulepreload" crossorigin href="/OrientalBoucherie/assets/vendor.C6ZqhxWp.js">
-    <link rel="modulepreload" crossorigin href="/OrientalBoucherie/assets/react-vendor.esZCIC4a.js">
-    <link rel="modulepreload" crossorigin href="/OrientalBoucherie/assets/ui-vendor.DT1r0YP4.js">
-    <link rel="modulepreload" crossorigin href="/OrientalBoucherie/assets/i18n-vendor.DFFi2l9K.js">
-    <link rel="stylesheet" crossorigin href="/OrientalBoucherie/assets/index.BQuuK1la.css">
+    <script type="module" crossorigin src="/OrientalBoucherie/assets/index.DlUHnNBe.js"></script>
+    <link rel="modulepreload" crossorigin href="/OrientalBoucherie/assets/react-vendor.pFVYCVC2.js">
+    <link rel="modulepreload" crossorigin href="/OrientalBoucherie/assets/ui-vendor.CiVjtjLU.js">
+    <link rel="modulepreload" crossorigin href="/OrientalBoucherie/assets/i18n-vendor.BK02QeAD.js">
+    <link rel="stylesheet" crossorigin href="/OrientalBoucherie/assets/index.D7Gpl4-Z.css">
   </head>
   <body>
     <div id="root"></div>
