@@ -5,7 +5,7 @@ import { portableTextComponents } from '../../recipes/PortableTextComponents';
 
 interface Step {
   title: string;
-  description?: any[];
+  description?: string | any[];
   image?: { _ref: string };
 }
 
@@ -19,6 +19,25 @@ const RecipeSteps: React.FC<RecipeStepsProps> = ({ steps, colSpan }) => {
     return null;
   }
 
+  // Function to render description based on its type
+  const renderDescription = (description: string | any[] | undefined) => {
+    if (!description) return null;
+    
+    if (typeof description === 'string') {
+      return <div className="ml-8 text-gray-700 dark:text-gray-300">{description}</div>;
+    }
+    
+    if (Array.isArray(description)) {
+      return (
+        <div className="ml-8 text-gray-700 dark:text-gray-300">
+          <PortableText value={description} components={portableTextComponents} />
+        </div>
+      );
+    }
+    
+    return null;
+  };
+
   return (
     <div className={colSpan}>
       <h2 className="text-2xl font-semibold mb-4">Préparation</h2>
@@ -31,11 +50,7 @@ const RecipeSteps: React.FC<RecipeStepsProps> = ({ steps, colSpan }) => {
               </div>
               <h3 className="font-medium text-lg">{step.title}</h3>
             </div>
-            {step.description && (
-              <div className="ml-8 text-gray-700 dark:text-gray-300">
-                <PortableText value={step.description} components={portableTextComponents} />
-              </div>
-            )}
+            {renderDescription(step.description)}
             {step.image && (
               <div className="mt-3 ml-8">
                 <img 

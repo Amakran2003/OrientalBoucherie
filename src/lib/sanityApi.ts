@@ -26,6 +26,7 @@ export interface Category {
 
 export interface Recipe {
   _id: string;
+  _createdAt: string;
   title: string;
   slug: { current: string };
   mainImage?: { _ref: string };
@@ -34,8 +35,10 @@ export interface Recipe {
   prepTime?: number;
   cookTime?: number;
   servings?: number;
+  country: string;
   ingredients?: { ingredient: string; amount: string }[];
-  steps?: { title: string; description: any[]; image?: { _ref: string } }[];
+  steps?: { title: string; description: string; image?: { _ref: string } }[];
+  keywords?: string[];
   publishedAt: string;
   featured: boolean;
 }
@@ -136,15 +139,20 @@ export async function getAllRecipes(): Promise<Recipe[]> {
   return safeQuery<Recipe[]>(`
     *[_type == "recipe"] | order(publishedAt desc) {
       _id,
+      _createdAt,
       title,
       slug,
       mainImage,
       description,
-      publishedAt,
       prepTime,
       cookTime,
       servings,
-      featured
+      country,
+      ingredients,
+      steps,
+      keywords,
+      featured,
+      publishedAt
     }
   `);
 }
@@ -162,6 +170,7 @@ export async function getFeaturedRecipes(): Promise<Recipe[]> {
       prepTime,
       cookTime,
       servings,
+      country,
       featured
     }[0...4]
   `);
@@ -173,6 +182,7 @@ export async function getRecipeBySlug(slug: string): Promise<Recipe | null> {
     const recipe = await client.fetch<Recipe | null>(`
       *[_type == "recipe" && slug.current == $slug][0] {
         _id,
+        _createdAt,
         title,
         slug,
         mainImage,
@@ -182,6 +192,7 @@ export async function getRecipeBySlug(slug: string): Promise<Recipe | null> {
         prepTime,
         cookTime,
         servings,
+        country,
         ingredients,
         steps,
         featured

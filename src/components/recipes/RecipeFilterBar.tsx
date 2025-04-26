@@ -7,6 +7,7 @@ export interface RecipeFilters {
   maxPrepTime: number | null;
   maxCookTime: number | null;
   servings: number | null;
+  country: string | null;
   sortBy: 'date-desc' | 'date-asc' | 'prepTime-asc' | 'cookTime-asc';
 }
 
@@ -16,6 +17,7 @@ interface RecipeFilterBarProps {
   maxPossiblePrepTime: number;
   maxPossibleCookTime: number;
   maxPossibleServings: number;
+  countries: string[];
 }
 
 const RecipeFilterBar: React.FC<RecipeFilterBarProps> = ({ 
@@ -23,7 +25,8 @@ const RecipeFilterBar: React.FC<RecipeFilterBarProps> = ({
   onFilterChange, 
   maxPossiblePrepTime,
   maxPossibleCookTime,
-  maxPossibleServings
+  maxPossibleServings,
+  countries
 }) => {
   const [showFilters, setShowFilters] = useState(false);
 
@@ -46,6 +49,11 @@ const RecipeFilterBar: React.FC<RecipeFilterBarProps> = ({
     onFilterChange({ ...filters, servings: value });
   };
 
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value === 'all' ? null : e.target.value;
+    onFilterChange({ ...filters, country: value });
+  };
+
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onFilterChange({ 
       ...filters, 
@@ -59,6 +67,7 @@ const RecipeFilterBar: React.FC<RecipeFilterBarProps> = ({
       maxPrepTime: null,
       maxCookTime: null,
       servings: null,
+      country: null,
       sortBy: 'date-desc'
     });
   };
@@ -90,6 +99,7 @@ const RecipeFilterBar: React.FC<RecipeFilterBarProps> = ({
           filters.maxPrepTime !== null || 
           filters.maxCookTime !== null ||
           filters.servings !== null ||
+          filters.country !== null ||
           filters.sortBy !== 'date-desc') && (
           <button
             onClick={clearFilters}
@@ -110,7 +120,7 @@ const RecipeFilterBar: React.FC<RecipeFilterBarProps> = ({
           transition={{ duration: 0.3 }}
           className="space-y-4"
         >
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {/* Prep time filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -156,6 +166,25 @@ const RecipeFilterBar: React.FC<RecipeFilterBarProps> = ({
                 <option value="all">Tous</option>
                 {[...Array(maxPossibleServings)].map((_, i) => (
                   <option key={i + 1} value={i + 1}>{i + 1} personne{i > 0 ? 's' : ''}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Country filter */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Pays d'origine
+              </label>
+              <select
+                value={filters.country || 'all'}
+                onChange={handleCountryChange}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              >
+                <option value="all">Tous les pays</option>
+                {countries.map((country) => (
+                  <option key={country} value={country}>
+                    {country}
+                  </option>
                 ))}
               </select>
             </div>

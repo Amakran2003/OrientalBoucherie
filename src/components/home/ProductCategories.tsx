@@ -98,25 +98,14 @@ const ProductCategories: React.FC = () => {
                     )}
                   </div>
                   
-                  {category.image ? (
-                    <img 
-                      src={urlFor(category.image).width(800).height(600).url()}
-                      alt={category.title} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      onLoad={() => handleImageLoad(category._id)}
-                      onError={(e) => handleImageError(category._id, e)}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <img 
-                      src={`/images/categories/${category.slug.current}.jpg`} 
-                      alt={category.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      onLoad={() => handleImageLoad(category._id)}
-                      onError={(e) => handleImageError(category._id, e)}
-                      loading="lazy"
-                    />
-                  )}
+                  <img 
+                    src={category.image ? urlFor(category.image).width(800).height(600).url() : PLACEHOLDER_IMAGE}
+                    alt={category.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onLoad={() => handleImageLoad(category._id)}
+                    onError={(e) => handleImageError(category._id, e)}
+                    loading="lazy"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70"></div>
                 </div>
                 <div className="p-6">

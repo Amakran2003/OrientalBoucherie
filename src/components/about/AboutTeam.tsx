@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { images } from '../../data';
 
 const AboutTeam: React.FC = () => {
   const { t } = useTranslation();
@@ -17,27 +16,25 @@ const AboutTeam: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <img 
-              src={images.team}
-              alt="Notre équipe de bouchers" 
-              className="rounded-lg shadow-xl w-full h-auto object-cover aspect-[4/3]"
+              src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg"
+              alt={t('about.team.imageAlt')}
+              className="rounded-lg shadow-lg w-full h-auto"
             />
           </motion.div>
-          
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="mb-6 text-secondary-900 dark:text-white">{t('about.team.title')}</h2>
-            <p className="mb-4 text-secondary-700 dark:text-secondary-300">
+            <h2 className="text-3xl font-bold mb-4 text-secondary-900 dark:text-white">
+              {t('about.team.title')}
+            </h2>
+            <p className="text-secondary-700 dark:text-secondary-300 mb-6">
               {t('about.team.description')}
             </p>
-            <p className="mb-4 text-secondary-700 dark:text-secondary-300">
-              {t('about.team.expertise')}
-            </p>
             <p className="text-secondary-700 dark:text-secondary-300">
-              {t('about.team.service')}
+              {t('about.team.mission')}
             </p>
           </motion.div>
         </div>

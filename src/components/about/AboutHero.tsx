@@ -1,8 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import PageHeader from '../layout/PageHeader';
-import { images } from '../../data';
 
 const AboutHero: React.FC = () => {
   const { t } = useTranslation();
@@ -10,8 +8,8 @@ const AboutHero: React.FC = () => {
   return (
     <PageHeader 
       title={t('about.title')}
-      subtitle={t('about.subtitle')}
-      backgroundImage={images.about}
+      description={t('about.subtitle')}
+      backgroundImage="https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg"
     />
   );
 };

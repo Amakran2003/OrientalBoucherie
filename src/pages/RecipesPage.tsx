@@ -9,7 +9,7 @@ import { useRecipeFilters } from '../hooks/recipes/useRecipeFilters';
 export default function RecipesPage() {
   // Use custom hooks
   const { recipes, loading, maxValues } = useRecipes();
-  const { filters, filteredRecipes, handleFilterChange, resetFilters } = useRecipeFilters(recipes);
+  const { filters, filteredRecipes, handleFilterChange, resetFilters, uniqueCountries } = useRecipeFilters(recipes);
 
   return (
     <>
@@ -26,6 +26,7 @@ export default function RecipesPage() {
           maxPossiblePrepTime={maxValues.prepTime}
           maxPossibleCookTime={maxValues.cookTime}
           maxPossibleServings={maxValues.servings}
+          countries={uniqueCountries}
         />
         
         {loading ? (

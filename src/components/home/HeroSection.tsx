@@ -51,7 +51,7 @@ const HeroSection: React.FC = () => {
       <div
         className="absolute inset-0 z-0 bg-cover bg-[55%_center] sm:bg-[75%_center]"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(0.0, 0.0, 0.90, 0.85), rgba(0, 0, 0, 0.6)), url(${heroImage})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(0.0, 0.0, 0.0, 0.85), rgba(0, 0, 0, 0.6)), url(${heroImage})`,
         }}
       />
       

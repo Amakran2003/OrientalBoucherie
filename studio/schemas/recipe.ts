@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'recipe',
-  title: 'Recettes',
+  title: 'Recette',
   type: 'document',
   fields: [
     defineField({
@@ -23,81 +23,139 @@ export default defineType({
     }),
     defineField({
       name: 'mainImage',
-      title: 'Image Principale',
+      title: 'Image principale',
       type: 'image',
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: 'country',
+      title: 'Pays',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Tunisie', value: 'Tunisie' },
+          { title: 'Maroc', value: 'Maroc' },
+          { title: 'Algérie', value: 'Algérie' },
+          { title: 'Liban', value: 'Liban' },
+          { title: 'France', value: 'France' },
+        ],
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'categories',
-      title: 'Catégories',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
-    }),
-    defineField({
       name: 'publishedAt',
-      title: 'Date de Publication',
+      title: 'Date de publication',
       type: 'datetime',
-      initialValue: () => new Date().toISOString(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'prepTime',
-      title: 'Temps de Préparation (minutes)',
+      title: 'Temps de préparation (minutes)',
       type: 'number',
+      validation: (Rule) => Rule.required().min(0),
     }),
     defineField({
       name: 'cookTime',
-      title: 'Temps de Cuisson (minutes)',
+      title: 'Temps de cuisson (minutes)',
       type: 'number',
+      validation: (Rule) => Rule.required().min(0),
     }),
     defineField({
       name: 'servings',
-      title: 'Nombre de Personnes',
+      title: 'Nombre de portions',
       type: 'number',
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'ingredients',
       title: 'Ingrédients',
       type: 'array',
-      of: [{type: 'ingredient'}], // Use the ingredient type instead of an inline object
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'ingredient',
+              title: 'Ingrédient',
+              type: 'string',
+            },
+            {
+              name: 'amount',
+              title: 'Quantité',
+              type: 'string',
+            },
+          ],
+        },
+      ],
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'steps',
-      title: 'Étapes de Préparation',
+      title: 'Étapes',
       type: 'array',
-      of: [{type: 'step'}], // Use the step type instead of an inline object
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'title',
+              title: 'Titre',
+              type: 'string',
+            },
+            {
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+            },
+          ],
+        },
+      ],
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'body',
-      title: 'Contenu',
-      type: 'blockContent',
+      title: 'Corps du texte',
+      type: 'array',
+      of: [{type: 'block'}],
     }),
     defineField({
       name: 'featured',
-      title: 'Recette à la Une',
+      title: 'Mise en avant',
       type: 'boolean',
       initialValue: false,
     }),
     defineField({
       name: 'relatedProducts',
-      title: 'Produits Liés',
+      title: 'Produits associés',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'product'}}],
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'product'}],
+        },
+      ],
     }),
   ],
-
   preview: {
     select: {
       title: 'title',
       media: 'mainImage',
-      subtitle: 'description',
+      country: 'country',
+    },
+    prepare({title, media, country}) {
+      return {
+        title,
+        media,
+        subtitle: `par ${country}`,
+      }
     },
   },
 })

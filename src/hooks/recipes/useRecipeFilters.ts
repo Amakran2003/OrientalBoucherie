@@ -8,8 +8,17 @@ export const useRecipeFilters = (recipes: Recipe[]) => {
     maxPrepTime: null,
     maxCookTime: null,
     servings: null,
+    country: null,
     sortBy: 'date-desc'
   });
+
+  // Get unique countries from recipes for filter dropdown
+  const uniqueCountries = useMemo(() => {
+    const countries = recipes
+      .map(recipe => recipe.country)
+      .filter((country): country is string => !!country);
+    return [...new Set(countries)].sort();
+  }, [recipes]);
 
   // Apply filters to recipes
   const filteredRecipes = useMemo(() => {
@@ -42,6 +51,13 @@ export const useRecipeFilters = (recipes: Recipe[]) => {
     if (filters.servings !== null) {
       result = result.filter(recipe => 
         recipe.servings === filters.servings
+      );
+    }
+    
+    // Filter by country - handle case sensitivity and null values
+    if (filters.country !== null && filters.country !== '') {
+      result = result.filter(recipe => 
+        recipe.country && recipe.country.toLowerCase() === filters.country!.toLowerCase()
       );
     }
 
@@ -82,9 +98,10 @@ export const useRecipeFilters = (recipes: Recipe[]) => {
       maxPrepTime: null,
       maxCookTime: null,
       servings: null,
+      country: null,
       sortBy: 'date-desc'
     });
   };
 
-  return { filters, filteredRecipes, handleFilterChange, resetFilters };
+  return { filters, filteredRecipes, handleFilterChange, resetFilters, uniqueCountries };
 };

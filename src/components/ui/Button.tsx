@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ type ButtonProps = {
   className?: string;
   icon?: React.ReactNode;
   onClick?: () => void;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+} & Omit<HTMLMotionProps<"button">, "children">;
 
 const Button: React.FC<ButtonProps> = ({
   children,

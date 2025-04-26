@@ -2,12 +2,76 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://featurable.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://cdn.sanity.io https://rrwhrsep.apicdn.sanity.io https://www.datocms-assets.com; img-src 'self' data: https://cdn.sanity.io https://rrwhrsep.apicdn.sanity.io https://www.datocms-assets.com https://images.unsplash.com https://images.pexels.com https://st4.depositphotos.com; connect-src 'self' https://cdn.sanity.io https://rrwhrsep.apicdn.sanity.io https://www.datocms-assets.com https://sanity.io https://featurable.com; frame-src 'self' https://www.google.com https://featurable.com;" />
+    
+    <!-- Meta information for performance -->
     <title>L'Oriental Boucherie par Aziz - Vierzon</title>
     <meta name="description" content="Votre boucherie traditionnelle à Vierzon depuis 8 ans, dirigée par Aziz. Viande halal de qualité supérieure." />
-    <script type="module" crossorigin src="/OrientalBoucherie/assets/index-DMVJvAEz.js"></script>
-    <link rel="stylesheet" crossorigin href="/OrientalBoucherie/assets/index-bhVWePZ-.css">
+    
+    <!-- Preload Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+    
+    <!-- GitHub Pages SPA redirection script -->
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./images/hero.webp" as="image" type="image/webp" fetchpriority="high" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+    <link rel="preconnect" href="https://rrwhrsep.apicdn.sanity.io" crossorigin />
+    <link rel="dns-prefetch" href="https://rrwhrsep.apicdn.sanity.io" />
+    <link rel="preconnect" href="https://www.datocms-assets.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.datocms-assets.com" />
+    <link rel="dns-prefetch" href="https://sanity.io" />
+    
+    <!-- Performance optimization hints -->
+    <meta http-equiv="Cache-Control" content="max-age=1800" />
+
+    <!-- Suppress font rendering delays to improve LCP -->
+    <style>
+      /* High priority elements in the hero section */
+      h1, .lcp-priority {
+        display: block;
+      }
+
+      /* Ensure text is visible during webfont load */
+      html {
+        font-display: swap;
+      }
+
+      /* System font fallbacks */
+      body {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      }
+    </style>
+    <script type="module" crossorigin src="/OrientalBoucherie/assets/index.WCiYjmYE.js"></script>
+    <link rel="modulepreload" crossorigin href="/OrientalBoucherie/assets/react-vendor.pFVYCVC2.js">
+    <link rel="modulepreload" crossorigin href="/OrientalBoucherie/assets/ui-vendor.CiVjtjLU.js">
+    <link rel="modulepreload" crossorigin href="/OrientalBoucherie/assets/i18n-vendor.BK02QeAD.js">
+    <link rel="stylesheet" crossorigin href="/OrientalBoucherie/assets/index.DlU_gk8x.css">
   </head>
   <body>
     <div id="root"></div>
