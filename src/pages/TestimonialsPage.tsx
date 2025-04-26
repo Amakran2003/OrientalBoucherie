@@ -1,28 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { siteConfig } from '../data';
 import PageHeader from '../components/layout/PageHeader';
 
 const TestimonialsPage: React.FC = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    
-    // Add Featurable bundle script if it doesn't exist
-    if (!document.querySelector('script[src="https://featurable.com/assets/bundle.js"]')) {
-      const script = document.createElement('script');
-      script.src = "https://featurable.com/assets/bundle.js";
-      script.defer = true;
-      script.setAttribute('charset', 'UTF-8');
-      document.body.appendChild(script);
-    }
-  }, []);
-
   return (
     <>
       <Helmet>
         <title>Témoignages - {siteConfig.siteName}</title>
         <meta name="description" content="Découvrez ce que nos clients pensent de L'Oriental. Témoignages et avis de notre clientèle." />
+        <script src="https://featurable.com/assets/bundle.js" defer charSet="UTF-8"></script>
       </Helmet>
       
       <main>
@@ -57,7 +45,9 @@ const TestimonialsPage: React.FC = () => {
             </div>
             
             {/* Featurable Widget */}
-            <div id="featurable-0b8d8f47-c220-4207-889b-73afc2cba77a" data-featurable-async></div>
+            <div className="min-h-[600px]">
+              <div id="featurable-0b8d8f47-c220-4207-889b-73afc2cba77a" data-featurable-async></div>
+            </div>
           </div>
         </section>
       </main>

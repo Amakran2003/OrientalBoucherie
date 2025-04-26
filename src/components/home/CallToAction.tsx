@@ -13,7 +13,7 @@ const CallToAction: React.FC = () => {
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://st4.depositphotos.com/14670260/23926/i/450/depositphotos_239266870-stock-photo-steak-raw-barbecue-rib-eye.jpg)`,
+          backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(https://st4.depositphotos.com/14670260/23926/i/450/depositphotos_239266870-stock-photo-steak-raw-barbecue-rib-eye.jpg)`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
         }}

@@ -6,9 +6,9 @@ import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 export const client = createClient({
   projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
   dataset: import.meta.env.VITE_SANITY_DATASET || 'production',
-  apiVersion: import.meta.env.VITE_SANITY_API_VERSION || '2023-05-03', 
-  useCdn: true, // Uses the cached API CDN
-  token: import.meta.env.VITE_SANITY_TOKEN, // Only needed for authenticated requests
+  apiVersion: import.meta.env.VITE_SANITY_API_VERSION || '2023-05-03',
+  useCdn: true, // Use CDN for better performance
+  token: import.meta.env.VITE_SANITY_TOKEN // Only needed for authenticated requests
 });
 
 // Image URL builder to easily work with Sanity images

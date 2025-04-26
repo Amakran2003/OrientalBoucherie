@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
 import ThemeToggle from '../ui/ThemeToggle';
-import LanguageSelector from '../ui/LanguageSelector';
 import { siteConfig } from '../../data';
 
 const Navbar: React.FC = () => {
@@ -62,13 +61,11 @@ const Navbar: React.FC = () => {
 
         <div className="hidden lg:flex items-center space-x-4">
           <ThemeToggle />
-          <LanguageSelector />
         </div>
 
         {/* Mobile Menu Button */}
         <div className="flex items-center space-x-3 lg:hidden">
           <ThemeToggle />
-          <LanguageSelector />
           <button
             onClick={toggleMenu}
             className={`p-2 ${isScrolled ? 'text-secondary-950 dark:text-white' : 'text-white'} focus:outline-none`}

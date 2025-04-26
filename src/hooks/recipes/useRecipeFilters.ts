@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Recipe } from '../../lib/sanityApi';
 import { RecipeFilters } from '../../components/recipes/RecipeFilterBar';
+import { matchesSearch } from '../../utils/searchUtils';
 
 export const useRecipeFilters = (recipes: Recipe[]) => {
   const [filters, setFilters] = useState<RecipeFilters>({
@@ -24,12 +25,11 @@ export const useRecipeFilters = (recipes: Recipe[]) => {
   const filteredRecipes = useMemo(() => {
     let result = [...recipes];
 
-    // Filter by search term
+    // Filter by search term using accent-insensitive search
     if (filters.search) {
-      const searchLower = filters.search.toLowerCase();
       result = result.filter(recipe => 
-        recipe.title.toLowerCase().includes(searchLower) || 
-        (recipe.description?.toLowerCase().includes(searchLower))
+        matchesSearch(filters.search, recipe.title) || 
+        (recipe.description && matchesSearch(filters.search, recipe.description))
       );
     }
 
