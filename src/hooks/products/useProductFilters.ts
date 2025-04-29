@@ -1,69 +1,104 @@
-import { useState, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getAllProducts } from '../../lib/apiUtils';
+import { useState, useEffect, useMemo } from 'react';
 import { Product } from '../../lib/sanityApi';
+import { ProductFilters } from '../../components/products/ProductFilterBar';
+import { matchesSearch } from '../../utils/searchUtils';
 
-export interface ProductFilters {
-  category?: string;
-  search: string;
-  priceRange: [number, number];
-  origin: string | null;
-  sortBy: 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc';
-}
-
-export function useProductFilters(products: Product[] = [], categorySlug?: string) {
+export const useProductFilters = (products: Product[], categorySlug?: string) => {
   const [filters, setFilters] = useState<ProductFilters>({
     search: '',
-    priceRange: [0, 1000],
+    priceRange: [0, 1000], // Default range, updated with actual max
     origin: null,
-    sortBy: 'name-asc',
-    category: categorySlug
+    sortBy: 'name-asc'
   });
-  const [forceRefresh, setForceRefresh] = useState(false);
-
-  // Calculate available origins and max price
-  const { origins, maxPrice } = useMemo(() => {
-    const uniqueOrigins = Array.from(new Set(products.map(p => p.origin).filter(Boolean) as string[]));
-    const maxPrice = Math.max(...products.map(p => p.price || 0));
-    return { origins: uniqueOrigins, maxPrice };
+  
+  // Calculate all unique origins from products
+  const origins = useMemo(() => {
+    const originSet = new Set<string>();
+    products.forEach(product => {
+      if (product.origin) {
+        originSet.add(product.origin);
+      }
+    });
+    return Array.from(originSet).sort();
   }, [products]);
 
-  const filteredProducts = products.filter(product => {
-    if (filters.category && product.category?._ref !== filters.category) {
-      return false;
+  // Calculate max price from all products
+  const maxPrice = useMemo(() => {
+    const prices = products.map(p => p.price);
+    const max = Math.max(...prices, 0);
+    // Round up to nearest 10 for better UX
+    return Math.ceil(max / 10) * 10;
+  }, [products]);
+
+  // Update price range when max price changes
+  useEffect(() => {
+    if (maxPrice > 0 && filters.priceRange[1] === 1000) {
+      setFilters(prev => ({
+        ...prev,
+        priceRange: [prev.priceRange[0], maxPrice]
+      }));
     }
-    if (filters.search) {
-      const searchLower = filters.search.toLowerCase();
-      return (
-        product.name.toLowerCase().includes(searchLower) ||
-        product.description?.toLowerCase().includes(searchLower)
+  }, [maxPrice]);
+
+  // Filter and sort products based on current filters
+  const filteredProducts = useMemo(() => {
+    let result = [...products];
+
+    // Filter by category if selected
+    if (categorySlug) {
+      result = result.filter(product => 
+        product.category && 
+        typeof product.category === 'object' &&
+        product.category !== null &&
+        'slug' in product.category && 
+        product.category.slug && 
+        typeof product.category.slug === 'object' &&
+        product.category.slug !== null &&
+        'current' in product.category.slug &&
+        product.category.slug.current === categorySlug
       );
     }
-    if (filters.origin && product.origin !== filters.origin) {
-      return false;
+
+    // Filter by search term using accent-insensitive search
+    if (filters.search) {
+      result = result.filter(product => 
+        matchesSearch(filters.search, product.name) || 
+        (product.description && matchesSearch(filters.search, product.description))
+      );
     }
-    if (product.price && (product.price < filters.priceRange[0] || product.price > filters.priceRange[1])) {
-      return false;
+
+    // Filter by price range
+    result = result.filter(product => 
+      product.price >= filters.priceRange[0] && 
+      product.price <= filters.priceRange[1]
+    );
+
+    // Filter by origin
+    if (filters.origin) {
+      result = result.filter(product => product.origin === filters.origin);
     }
-    return true;
-  }).sort((a, b) => {
-    if (!filters.sortBy) return 0;
+
+    // Sort products
     switch (filters.sortBy) {
       case 'price-asc':
-        return (a.price || 0) - (b.price || 0);
+        result.sort((a, b) => a.price - b.price);
+        break;
       case 'price-desc':
-        return (b.price || 0) - (a.price || 0);
+        result.sort((a, b) => b.price - a.price);
+        break;
       case 'name-asc':
-        return a.name.localeCompare(b.name);
+        result.sort((a, b) => a.name.localeCompare(b.name));
+        break;
       case 'name-desc':
-        return b.name.localeCompare(a.name);
-      default:
-        return 0;
+        result.sort((a, b) => b.name.localeCompare(a.name));
+        break;
     }
-  });
 
-  const handleFilterChange = (newFilters: Partial<ProductFilters>) => {
-    setFilters(prev => ({ ...prev, ...newFilters }));
+    return result;
+  }, [products, categorySlug, filters]);
+
+  const handleFilterChange = (newFilters: ProductFilters) => {
+    setFilters(newFilters);
   };
 
   const resetFilters = () => {
@@ -71,26 +106,16 @@ export function useProductFilters(products: Product[] = [], categorySlug?: strin
       search: '',
       priceRange: [0, maxPrice],
       origin: null,
-      sortBy: 'name-asc',
-      category: categorySlug
+      sortBy: 'name-asc'
     });
   };
 
-  const refreshProducts = () => {
-    setForceRefresh(prev => !prev);
-  };
-
-  return {
-    products: filteredProducts,
-    filteredProducts,
-    filters,
-    setFilters,
-    isLoading: false,
-    error: null,
-    refreshProducts,
-    origins,
-    maxPrice,
+  return { 
+    filters, 
+    filteredProducts, 
+    origins, 
+    maxPrice, 
     handleFilterChange,
     resetFilters
   };
-}
+};

@@ -1,12 +1,26 @@
-import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 import { getAllProducts } from '../../lib/apiUtils';
 import { Product } from '../../lib/sanityApi';
 
 export const useProducts = () => {
-  const { data: products = [], isLoading: loading, error } = useQuery({
-    queryKey: ['products'],
-    queryFn: () => getAllProducts(),
-  });
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  return { products, loading, error };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const productsData = await getAllProducts();
+        setProducts(productsData);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  return { products, loading };
 };
