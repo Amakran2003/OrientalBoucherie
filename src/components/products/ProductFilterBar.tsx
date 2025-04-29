@@ -61,8 +61,6 @@ const ProductFilterBar: React.FC<ProductFilterBarProps> = ({
       <div className="relative mb-4">
         <input
           type="text"
-          id="product-search"
-          name="product-search"
           placeholder="Rechercher des produits..."
           value={filters.search}
           onChange={handleSearchChange}

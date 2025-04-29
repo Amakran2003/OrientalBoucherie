@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { getFeaturedProducts } from '../../lib/apiUtils';
 import { Product } from '../../lib/sanityApi';
 import { urlFor } from '../../lib/sanity';
-import LoadingIndicator from '../ui/LoadingIndicator';
 
 // Simple loading component for product images
 const ImageLoader = () => (
@@ -21,10 +20,9 @@ export default function FeaturedProducts() {
       setLoading(true);
       try {
         const productsData = await getFeaturedProducts();
-        setProducts(productsData || []);
+        setProducts(productsData);
       } catch (error) {
         console.error('Error fetching featured products:', error);
-        setProducts([]);
       } finally {
         setLoading(false);
       }
@@ -61,12 +59,12 @@ export default function FeaturedProducts() {
   if (loading) {
     return (
       <div className="py-20 flex justify-center">
-        <LoadingIndicator size="lg" />
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-red-700"></div>
       </div>
     );
   }
 
-  if (!products || products.length === 0) {
+  if (products.length === 0) {
     return null; // Don't show the section if no featured products
   }
 
@@ -99,44 +97,60 @@ export default function FeaturedProducts() {
                     src={urlFor(product.image).width(600).height(400).auto('format').quality(80).url()}
                     alt={product.name}
                     loading="lazy"
-                    className={`w-full h-full object-cover transition-transform duration-300 hover:scale-105 ${
-                      imgLoaded[product._id] ? 'opacity-100' : 'opacity-0'
+                    className={`w-full h-full object-cover transition-transform ${
+                      imgLoaded[product._id] ? 'hover:scale-105' : 'opacity-0'
                     }`}
                     onLoad={() => handleImageLoaded(product._id)}
+                    width="600"
+                    height="400"
                   />
                   {!imgLoaded[product._id] && <ImageLoader />}
                 </div>
               ) : (
-                <ImageLoader />
+                <div className="h-56 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                  <span className="text-gray-400">Image non disponible</span>
+                </div>
               )}
               
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-                  {product.name}
-                </h3>
+              <div className="p-5">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold">{product.name}</h3>
+                  {product.isHalal && (
+                    <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">Halal</span>
+                  )}
+                </div>
+                
                 {product.description && (
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
                     {product.description}
                   </p>
                 )}
+                
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-bold text-primary-600 dark:text-primary-500">
-                    {product.price.toFixed(2)} €
-                    <span className="text-sm text-gray-500 dark:text-gray-400 ml-1">
-                      /{product.unit}
-                    </span>
-                  </span>
-                  <Link 
-                    to={`/products/${product.category?._ref || ''}`}
-                    className="text-primary-600 dark:text-primary-500 hover:text-primary-700 dark:hover:text-primary-400 font-medium"
-                  >
-                    Voir plus
-                  </Link>
+                  <div className="text-lg font-bold text-red-700">
+                    {product.price} €<span className="text-sm text-gray-600 dark:text-gray-400">/{product.unit}</span>
+                  </div>
+                  
+                  {product.origin && (
+                    <div className="text-xs text-gray-500">Origine: {product.origin}</div>
+                  )}
                 </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
+        
+        <div className="text-center mt-10">
+          <Link
+            to="/products"
+            className="inline-flex items-center px-6 py-3 bg-red-700 hover:bg-red-800 text-white font-medium rounded-md transition-colors"
+          >
+            Voir tous nos produits
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </Link>
+        </div>
       </div>
     </section>
   );

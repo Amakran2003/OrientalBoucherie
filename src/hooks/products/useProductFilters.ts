@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Product } from '../../lib/sanityApi';
 import { ProductFilters } from '../../components/products/ProductFilterBar';
-import { matchesSearch } from '../../utils/searchUtils';
 
 export const useProductFilters = (products: Product[], categorySlug?: string) => {
   const [filters, setFilters] = useState<ProductFilters>({
@@ -59,11 +58,12 @@ export const useProductFilters = (products: Product[], categorySlug?: string) =>
       );
     }
 
-    // Filter by search term using accent-insensitive search
+    // Filter by search term
     if (filters.search) {
+      const searchLower = filters.search.toLowerCase();
       result = result.filter(product => 
-        matchesSearch(filters.search, product.name) || 
-        (product.description && matchesSearch(filters.search, product.description))
+        product.name.toLowerCase().includes(searchLower) || 
+        (product.description?.toLowerCase().includes(searchLower))
       );
     }
 

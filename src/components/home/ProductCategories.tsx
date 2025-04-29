@@ -13,7 +13,7 @@ const PLACEHOLDER_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA
 
 const ProductCategories: React.FC = () => {
   const { t } = useTranslation();
-  const { categories = [], loading } = useCategories();
+  const { categories, loading } = useCategories();
   // Track images that are loading or have failed
   const [imageStatus, setImageStatus] = useState<Record<string, 'loading' | 'loaded' | 'error'>>({});
 
@@ -76,7 +76,7 @@ const ProductCategories: React.FC = () => {
           <div className="py-12 flex justify-center">
             <LoadingIndicator size="lg" />
           </div>
-        ) : categories.length > 0 ? (
+        ) : (
           <motion.div 
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             variants={containerVariants}
@@ -98,51 +98,52 @@ const ProductCategories: React.FC = () => {
                     )}
                   </div>
                   
-                  <img
+                  <img 
                     src={category.image ? urlFor(category.image).width(800).height(600).url() : PLACEHOLDER_IMAGE}
-                    alt={category.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    alt={category.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onLoad={() => handleImageLoad(category._id)}
                     onError={(e) => handleImageError(category._id, e)}
+                    loading="lazy"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70"></div>
                 </div>
-                
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-secondary-900 dark:text-white mb-2">
+                  <h3 className="text-xl font-semibold mb-2 text-secondary-900 dark:text-white">
                     {category.title}
                   </h3>
-                  {category.description && (
-                    <p className="text-secondary-700 dark:text-secondary-300 mb-4">
-                      {category.description}
-                    </p>
-                  )}
-                  <Link to={`/products/${category.slug.current}`}>
-                    <Button
-                      variant="secondary"
-                      className="group inline-flex items-center"
+                  <p className="text-secondary-700 dark:text-secondary-300 mb-4">
+                    {category.description}
+                  </p>
+                  <motion.div
+                    initial="rest"
+                    whileHover="hover"
+                    animate="rest"
+                    className="inline-block"
+                  >
+                    <Link 
+                      to={`/products/${category.slug.current}`}
+                      className="inline-flex items-center text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
                     >
-                      {t('home.categories.viewAll')}
-                      <motion.span
-                        variants={arrowVariants}
-                        initial="rest"
-                        whileHover="hover"
-                        className="ml-2"
-                      >
-                        <ArrowRight size={18} />
+                      Voir les produits 
+                      <motion.span variants={arrowVariants}>
+                        <ArrowRight size={16} className="ml-1" />
                       </motion.span>
-                    </Button>
-                  </Link>
+                    </Link>
+                  </motion.div>
                 </div>
               </motion.div>
             ))}
           </motion.div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-secondary-700 dark:text-secondary-300">
-              {t('home.categories.noCategories')}
-            </p>
-          </div>
         )}
+
+        <div className="text-center mt-12">
+          <Link to="/products">
+            <Button variant="secondary">
+              {t('home.categories.viewAll')}
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   );

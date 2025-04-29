@@ -78,8 +78,6 @@ const RecipeFilterBar: React.FC<RecipeFilterBarProps> = ({
       <div className="relative mb-4">
         <input
           type="text"
-          id="recipe-search"
-          name="recipe-search"
           placeholder="Rechercher des recettes..."
           value={filters.search}
           onChange={handleSearchChange}
