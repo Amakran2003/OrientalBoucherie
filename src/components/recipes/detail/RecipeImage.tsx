@@ -18,9 +18,9 @@ const RecipeImage: React.FC<RecipeImageProps> = ({ mainImage, title }) => {
       </Link>
 
       {mainImage && (
-        <div className="mb-8">
+        <div className="mb-8 max-w-3xl mx-auto">
           <img
-            src={urlFor(mainImage).width(1200).url()}
+            src={urlFor(mainImage).width(800).url()}
             alt={title}
             className="w-full h-auto rounded-lg shadow-md"
           />

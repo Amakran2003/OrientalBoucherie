@@ -1,1 +1,0 @@
-const e=()=>({formatDate:e=>{if(!e)return"Date non disponible";try{const n=new Date(e);return isNaN(n.getTime())?"Date non disponible":new Intl.DateTimeFormat("fr-FR",{day:"numeric",month:"long",year:"numeric"}).format(n)}catch(n){return"Date non disponible"}}});export{e as u};

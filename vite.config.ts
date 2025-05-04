@@ -24,10 +24,9 @@ export default defineConfig({
     ] : []),
   ],
   optimizeDeps: {
-    include: ['lucide-react', 'framer-motion', 'react-router-dom', 'react-i18next', 'react'],
+    include: ['lucide-react', 'framer-motion', 'react-router-dom', 'react-i18next'],
   },
-  // Always use the GitHub Pages base path in production for consistency
-  base: '/OrientalBoucherie/',
+  base: process.env.NODE_ENV === 'production' ? '/OrientalBoucherie/' : '/',
   build: {
     chunkSizeWarningLimit: 1000, // in kilobytes (1000 = 1 MB)
     cssCodeSplit: true,
@@ -41,10 +40,30 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['framer-motion', 'lucide-react'],
-          'i18n-vendor': ['react-i18next', 'i18next']
+        manualChunks: (id) => {
+          // React vendor chunk
+          if (id.includes('node_modules/react/') || 
+              id.includes('node_modules/react-dom/') || 
+              id.includes('node_modules/react-router-dom/')) {
+            return 'react-vendor';
+          }
+          
+          // UI libraries vendor chunk
+          if (id.includes('node_modules/framer-motion/') || 
+              id.includes('node_modules/lucide-react/')) {
+            return 'ui-vendor';
+          }
+          
+          // i18n vendor chunk
+          if (id.includes('node_modules/react-i18next/') || 
+              id.includes('node_modules/i18next/')) {
+            return 'i18n-vendor';
+          }
+          
+          // Let splitVendorChunkPlugin handle other dependencies
+          if (id.includes('node_modules/')) {
+            return 'vendor';
+          }
         },
         // Improve chunk naming pattern
         entryFileNames: 'assets/[name].[hash].js',

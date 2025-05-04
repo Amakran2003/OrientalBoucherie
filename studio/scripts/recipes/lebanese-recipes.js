@@ -3,162 +3,84 @@
  * Chaque recette met en valeur un type de viande différent et est prête pour l'importation dans Sanity
  */
 
-export const recipes = [
+export const lebaneseRecipes = [
   {
-    _type: 'recipe',
-    title: 'Kafta à la Libanaise',
+    _type: "recipe",
+    title: "Kafta à la Libanaise",
+    slug: { _type: "slug", current: "kafta-libanaise" },
+    mainImage: { _type: "image", asset: { _type: "reference", _ref: "image-kafta-libanaise" } },
+    categories: [ { _type: "reference", _ref: "category-lamb" } ],
+    country: "Liban",
+    publishedAt: new Date().toISOString(),
+    prepTime: 30,
+    cookTime: 20,
+    servings: 4,
+    ingredients: [
+      { ingredient: "Viande d'agneau hachée", amount: "500 g" },
+      { ingredient: "Oignon", amount: "1" },
+      { ingredient: "Persil frais", amount: "1 bouquet" },
+      { ingredient: "Menthe fraîche", amount: "1/2 bouquet" },
+      { ingredient: "Ail", amount: "2 gousses" },
+      { ingredient: "Cumin", amount: "1 cuillère à café" },
+      { ingredient: "Piment d'Alep", amount: "1/2 cuillère à café" },
+      { ingredient: "Sel et poivre", amount: "Au goût" }
+    ],
+    steps: [
+      { title: "Préparation", description: "Hachez finement l'oignon, le persil et la menthe. Écrasez l'ail." },
+      { title: "Mélange", description: "Dans un grand bol, mélangez la viande hachée avec tous les ingrédients hachés et les épices." },
+      { title: "Façonnage", description: "Formez des boulettes allongées ou des brochettes avec la préparation." },
+      { title: "Cuisson", description: "Faites griller les kaftas au barbecue ou à la poêle pendant 8-10 minutes en les retournant régulièrement." }
+    ],
+    description: "Les kaftas libanaises sont des brochettes de viande hachée épicées, parfaites pour un barbecue estival.",
+    body: [],
+    featured: true,
+    relatedProducts: [ { _type: "reference", _ref: "product-ground-lamb" } ]
+  },
+  {
+    title: 'Méchoui d\'Agneau',
     slug: {
-      _type: 'slug',
-      current: 'kafta-libanaise'
+      current: 'mechoui-agneau'
     },
     mainImage: {
-      _type: 'image',
       asset: {
-        _type: 'reference',
-        _ref: 'image-to-be-replaced' // À remplacer par une référence d'image réelle après téléchargement
+        _ref: 'image-to-be-replaced'
       }
     },
     categories: [
       {
-        _type: 'reference',
-        _ref: 'category-lamb' // Référence à la catégorie agneau
+        _ref: 'category-lamb'
       }
     ],
     country: 'Liban',
     publishedAt: new Date().toISOString(),
-    prepTime: 30,
-    cookTime: 25,
-    servings: 4,
+    prepTime: 60,
+    cookTime: 240,
+    servings: 8,
     ingredients: [
-      {
-        _type: 'ingredient',
-        ingredient: 'Viande d\'agneau hachée',
-        amount: '500 g'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Oignon',
-        amount: '1'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Ail',
-        amount: '3 gousses'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Persil plat',
-        amount: '1 bouquet'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Menthe fraîche',
-        amount: '1/2 bouquet'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Cumin',
-        amount: '1 cuillère à café'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Cannelle',
-        amount: '1/2 cuillère à café'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Piment de Cayenne',
-        amount: '1/4 cuillère à café'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Sel et poivre',
-        amount: 'Au goût'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Huile d\'olive',
-        amount: '2 cuillères à soupe'
-      }
+      { ingredient: 'Épaule d\'agneau', amount: '2 kg' },
+      { ingredient: 'Ail', amount: '1 tête' },
+      { ingredient: 'Citron', amount: '2' },
+      { ingredient: 'Huile d\'olive', amount: '4 c.à.s' },
+      { ingredient: 'Cumin', amount: '2 c.à.s' },
+      { ingredient: 'Paprika', amount: '1 c.à.s' },
+      { ingredient: 'Piment de Cayenne', amount: '1 c.à.c' },
+      { ingredient: 'Sel', amount: '2 c.à.s' },
+      { ingredient: 'Poivre noir', amount: '1 c.à.s' },
+      { ingredient: 'Thym frais', amount: '4 branches' },
+      { ingredient: 'Romarin', amount: '4 branches' }
     ],
     steps: [
-      {
-        _type: 'step',
-        title: 'Préparation des ingrédients',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Hachez finement l\'oignon, l\'ail, le persil et la menthe. Mélangez tous les ingrédients secs (épices, sel, poivre).'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      },
-      {
-        _type: 'step',
-        title: 'Préparation de la kafta',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Dans un grand bol, mélangez la viande hachée avec les légumes hachés et les épices. Pétrir à la main pendant 5 minutes pour obtenir une pâte homogène.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      },
-      {
-        _type: 'step',
-        title: 'Formation des brochettes',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Formez des boulettes allongées de la taille d\'un doigt. Enfilez-les sur des brochettes en bois préalablement trempées dans l\'eau.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      },
-      {
-        _type: 'step',
-        title: 'Cuisson',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Badigeonnez les brochettes d\'huile d\'olive. Faites griller sur un barbecue ou sous le gril du four pendant 10-12 minutes en les retournant régulièrement.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      }
+      { title: "Préparation de la marinade", description: "Préparez la marinade en mélangeant l'huile d'olive, le jus des citrons, l'ail écrasé, le cumin, le paprika, le piment de Cayenne, le sel et le poivre." },
+      { title: "Marinage de la viande", description: "Faites des incisions profondes dans la viande et versez la marinade dessus. Ajoutez les branches de thym et de romarin. Laissez mariner au moins 4 heures, idéalement toute une nuit au réfrigérateur." },
+      { title: "Cuisson", description: "Préchauffez le four à 180°C. Placez la viande dans un plat allant au four avec un peu d'eau au fond. Couvrez de papier aluminium et enfournez pour 3-4 heures." },
+      { title: "Finalisation", description: "Retirez le papier aluminium pour les 30 dernières minutes de cuisson pour que la viande dore. La viande est prête lorsqu'elle se détache facilement de l'os." }
     ],
-    description: 'La kafta est un plat emblématique de la cuisine libanaise, fait de viande d\'agneau hachée épicée et grillée en brochettes.',
+    description: 'Épaule d\'agneau marinée et rôtie à la libanaise, tendre et parfumée.',
     body: [
       {
-        _type: 'block',
         children: [
           {
-            _type: 'span',
-            text: 'La kafta est l\'un des plats les plus populaires de la cuisine libanaise. Cette version traditionnelle utilise de la viande d\'agneau hachée, parfumée aux herbes fraîches et aux épices caractéristiques de la cuisine du Levant. Les brochettes sont généralement servies avec du tabbouleh, de l\'houmous et du pain pita.'
+            text: 'Le méchoui est un plat traditionnel du Maghreb et du Moyen-Orient. Cette version libanaise utilise une marinade épicée et des herbes aromatiques pour parfumer la viande.'
           }
         ],
         markDefs: [],
@@ -168,29 +90,23 @@ export const recipes = [
     featured: true,
     relatedProducts: [
       {
-        _type: 'reference',
-        _ref: 'product-minced-lamb'
+        _ref: 'product-lamb-shoulder'
       }
     ]
   },
   {
-    _type: 'recipe',
-    title: 'Chawarma de Poulet à la Libanaise',
+    title: 'Chawarma de Poulet',
     slug: {
-      _type: 'slug',
-      current: 'chawarma-poulet-libanaise'
+      current: 'chawarma-poulet'
     },
     mainImage: {
-      _type: 'image',
       asset: {
-        _type: 'reference',
-        _ref: 'image-to-be-replaced' // À remplacer par une référence d'image réelle après téléchargement
+        _ref: 'image-to-be-replaced'
       }
     },
     categories: [
       {
-        _type: 'reference',
-        _ref: 'category-poultry' // Référence à la catégorie volaille
+        _ref: 'category-poultry'
       }
     ],
     country: 'Liban',
@@ -199,118 +115,33 @@ export const recipes = [
     cookTime: 60,
     servings: 6,
     ingredients: [
-      {
-        _type: 'ingredient',
-        ingredient: 'Blancs de poulet',
-        amount: '1 kg'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Yaourt nature',
-        amount: '200 g'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Jus de citron',
-        amount: '2 cuillères à soupe'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Ail',
-        amount: '6 gousses'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Cumin',
-        amount: '2 cuillères à café'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Paprika',
-        amount: '2 cuillères à café'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Cannelle',
-        amount: '1 cuillère à café'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Cardamome',
-        amount: '1/2 cuillère à café'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Huile d\'olive',
-        amount: '3 cuillères à soupe'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Sel et poivre',
-        amount: 'Au goût'
-      }
+      { ingredient: 'Blancs de poulet', amount: '800 g' },
+      { ingredient: 'Yaourt nature', amount: '200 g' },
+      { ingredient: 'Jus de citron', amount: '2 c.à.s' },
+      { ingredient: 'Ail', amount: '4 gousses' },
+      { ingredient: 'Cumin', amount: '1 c.à.s' },
+      { ingredient: 'Paprika', amount: '1 c.à.s' },
+      { ingredient: 'Cannelle', amount: '1/2 c.à.c' },
+      { ingredient: 'Cardamome', amount: '1/2 c.à.c' },
+      { ingredient: 'Sel', amount: '1 c.à.s' },
+      { ingredient: 'Poivre noir', amount: '1 c.à.c' },
+      { ingredient: 'Huile d\'olive', amount: '2 c.à.s' },
+      { ingredient: 'Pains pita', amount: '6' },
+      { ingredient: 'Tahini', amount: '4 c.à.s' },
+      { ingredient: 'Persil frais', amount: '1 bouquet' }
     ],
     steps: [
-      {
-        _type: 'step',
-        title: 'Préparation de la marinade',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Dans un grand bol, mélangez le yaourt, le jus de citron, l\'ail pressé, les épices, l\'huile d\'olive, le sel et le poivre.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      },
-      {
-        _type: 'step',
-        title: 'Marinade du poulet',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Coupez les blancs de poulet en lamelles. Ajoutez-les à la marinade et mélangez bien. Couvrez et laissez mariner au réfrigérateur pendant au moins 4 heures, idéalement toute une nuit.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      },
-      {
-        _type: 'step',
-        title: 'Cuisson',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Faites chauffer une grande poêle ou un wok à feu vif. Ajoutez le poulet mariné et faites-le cuire en remuant constamment pendant 8-10 minutes, jusqu\'à ce que la viande soit bien cuite et légèrement caramélisée.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      }
+      { title: "Préparation de la marinade", description: "Mélangez le yaourt, le jus de citron, l'ail écrasé, le cumin, le paprika, la cannelle, la cardamome, le sel et le poivre." },
+      { title: "Marinage du poulet", description: "Coupez le poulet en lamelles et mélangez-le avec la marinade. Laissez mariner au moins 2 heures, idéalement toute une nuit au réfrigérateur." },
+      { title: "Cuisson", description: "Faites chauffer l'huile d'olive dans une grande poêle. Faites cuire le poulet à feu moyen-vif pendant 10-15 minutes jusqu'à ce qu'il soit bien cuit et légèrement doré." },
+      { title: "Préparation des pains", description: "Chauffez légèrement les pains pita. Étalez une fine couche de tahini sur chaque pain, ajoutez le poulet et garnissez de persil frais." }
     ],
-    description: 'Le chawarma de poulet est un plat street-food libanais populaire, fait de poulet mariné aux épices et grillé, servi dans du pain pita avec des légumes et une sauce à l\'ail.',
+    description: 'Poulet mariné et épicé servi dans des pains pita, spécialité street food libanaise.',
     body: [
       {
-        _type: 'block',
         children: [
           {
-            _type: 'span',
-            text: 'Le chawarma est l\'un des plats les plus emblématiques de la cuisine de rue libanaise. Cette version au poulet est particulièrement savoureuse grâce à sa marinade épicée au yaourt et aux épices traditionnelles. Traditionnellement servi dans du pain pita avec des légumes frais et une sauce à l\'ail crémeuse, c\'est un plat complet et délicieux.'
+            text: 'Le chawarma est un plat populaire dans tout le Moyen-Orient. Cette version utilise du poulet mariné dans des épices traditionnelles et est servie dans des pains pita avec une sauce au tahini.'
           }
         ],
         markDefs: [],
@@ -320,183 +151,56 @@ export const recipes = [
     featured: true,
     relatedProducts: [
       {
-        _type: 'reference',
         _ref: 'product-chicken-breast'
       }
     ]
   },
   {
-    _type: 'recipe',
-    title: 'Kibbeh au Bœuf',
+    title: 'Kibbeh Nayeh',
     slug: {
-      _type: 'slug',
-      current: 'kibbeh-boeuf'
+      current: 'kibbeh-nayeh'
     },
     mainImage: {
-      _type: 'image',
       asset: {
-        _type: 'reference',
-        _ref: 'image-to-be-replaced' // À remplacer par une référence d'image réelle après téléchargement
+        _ref: 'image-to-be-replaced'
       }
     },
     categories: [
       {
-        _type: 'reference',
-        _ref: 'category-beef' // Référence à la catégorie bœuf
+        _ref: 'category-lamb'
       }
     ],
     country: 'Liban',
     publishedAt: new Date().toISOString(),
-    prepTime: 60,
-    cookTime: 30,
+    prepTime: 45,
+    cookTime: 0,
     servings: 6,
     ingredients: [
-      {
-        _type: 'ingredient',
-        ingredient: 'Boulgour fin',
-        amount: '250 g'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Viande de bœuf hachée',
-        amount: '500 g'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Oignon',
-        amount: '1'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Pignons de pin',
-        amount: '50 g'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Persil plat',
-        amount: '1 bouquet'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Cumin',
-        amount: '1 cuillère à café'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Cannelle',
-        amount: '1/2 cuillère à café'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Huile d\'olive',
-        amount: '3 cuillères à soupe'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Sel et poivre',
-        amount: 'Au goût'
-      },
-      {
-        _type: 'ingredient',
-        ingredient: 'Huile pour friture',
-        amount: 'Pour la friture'
-      }
+      { ingredient: 'Viande d\'agneau hachée très finement', amount: '500 g' },
+      { ingredient: 'Boulgour fin', amount: '200 g' },
+      { ingredient: 'Oignon', amount: '1' },
+      { ingredient: 'Ail', amount: '2 gousses' },
+      { ingredient: 'Menthe fraîche', amount: '1/2 bouquet' },
+      { ingredient: 'Cumin', amount: '1 c.à.c' },
+      { ingredient: 'Piment de Cayenne', amount: '1/2 c.à.c' },
+      { ingredient: 'Sel', amount: '1 c.à.s' },
+      { ingredient: 'Poivre noir', amount: '1/2 c.à.c' },
+      { ingredient: 'Huile d\'olive', amount: '4 c.à.s' },
+      { ingredient: 'Pignons de pin', amount: '50 g' },
+      { ingredient: 'Feuilles de laitue', amount: '1 tête' }
     ],
     steps: [
-      {
-        _type: 'step',
-        title: 'Préparation du boulgour',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Faites tremper le boulgour dans de l\'eau tiède pendant 30 minutes. Égouttez bien et essorez dans un torchon.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      },
-      {
-        _type: 'step',
-        title: 'Préparation de la farce',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Hachez finement l\'oignon et le persil. Dans une poêle, faites revenir les pignons de pin jusqu\'à ce qu\'ils soient dorés. Réservez.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      },
-      {
-        _type: 'step',
-        title: 'Préparation de la pâte',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Dans un grand bol, mélangez la moitié de la viande hachée avec le boulgour égoutté, l\'oignon, les épices, le sel et le poivre. Pétrir à la main jusqu\'à obtenir une pâte homogène.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      },
-      {
-        _type: 'step',
-        title: 'Formation des kibbeh',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Prenez une noix de pâte et formez une boule creuse. Remplissez avec un peu de viande hachée restante et quelques pignons. Fermez en formant une forme de ballon de rugby.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      },
-      {
-        _type: 'step',
-        title: 'Cuisson',
-        description: [
-          {
-            _type: 'block',
-            children: [
-              {
-                _type: 'span',
-                text: 'Faites chauffer l\'huile de friture. Plongez les kibbeh et faites-les frire pendant 5-6 minutes jusqu\'à ce qu\'ils soient bien dorés. Égouttez sur du papier absorbant.'
-              }
-            ],
-            markDefs: [],
-            style: 'normal'
-          }
-        ]
-      }
+      { title: "Préparation du boulgour", description: "Faites tremper le boulgour dans de l'eau froide pendant 30 minutes, puis égouttez-le bien en pressant pour éliminer l'excès d'eau." },
+      { title: "Préparation des ingrédients", description: "Hachez finement l'oignon et l'ail. Ciselez la menthe fraîche." },
+      { title: "Mélange", description: "Dans un grand bol, mélangez la viande hachée, le boulgour égoutté, l'oignon, l'ail, la menthe, le cumin, le piment de Cayenne, le sel et le poivre. Pétrissez bien pour obtenir une pâte homogène." },
+      { title: "Service", description: "Formez une boule avec le mélange et aplatissez-la sur un plat. Arrosez d'huile d'olive et garnissez de pignons de pin. Servez avec des feuilles de laitue pour envelopper." }
     ],
-    description: 'Les kibbeh sont des croquettes traditionnelles libanaises à base de boulgour et de viande hachée, farcies et frites.',
+    description: 'Tartare d\'agneau épicé, spécialité libanaise servie crue.',
     body: [
       {
-        _type: 'block',
         children: [
           {
-            _type: 'span',
-            text: 'Les kibbeh sont l\'un des plats les plus emblématiques de la cuisine libanaise. Ces croquettes croustillantes à l\'extérieur et tendres à l\'intérieur sont traditionnellement servies en entrée ou en accompagnement. La version au bœuf est particulièrement populaire, avec sa farce savoureuse aux pignons de pin.'
+            text: 'Le kibbeh nayeh est un plat traditionnel libanais qui se déguste cru. Il est important d\'utiliser de la viande très fraîche et de haute qualité pour ce plat.'
           }
         ],
         markDefs: [],
@@ -506,8 +210,70 @@ export const recipes = [
     featured: false,
     relatedProducts: [
       {
-        _type: 'reference',
-        _ref: 'product-minced-beef'
+        _ref: 'product-ground-lamb'
+      }
+    ]
+  },
+  {
+    title: 'Mansaf au Poulet',
+    slug: {
+      current: 'mansaf-poulet'
+    },
+    mainImage: {
+      asset: {
+        _ref: 'image-to-be-replaced'
+      }
+    },
+    categories: [
+      {
+        _ref: 'category-poultry'
+      }
+    ],
+    country: 'Liban',
+    publishedAt: new Date().toISOString(),
+    prepTime: 60,
+    cookTime: 120,
+    servings: 8,
+    ingredients: [
+      { ingredient: 'Poulet entier', amount: '1.5 kg' },
+      { ingredient: 'Riz basmati', amount: '500 g' },
+      { ingredient: 'Yaourt nature', amount: '500 g' },
+      { ingredient: 'Amandes effilées', amount: '100 g' },
+      { ingredient: 'Pignons de pin', amount: '50 g' },
+      { ingredient: 'Oignon', amount: '2' },
+      { ingredient: 'Ail', amount: '4 gousses' },
+      { ingredient: 'Bouillon de poulet', amount: '1 L' },
+      { ingredient: 'Cardamome', amount: '1 c.à.c' },
+      { ingredient: 'Cannelle', amount: '1 bâton' },
+      { ingredient: 'Clous de girofle', amount: '4' },
+      { ingredient: 'Sel', amount: '2 c.à.s' },
+      { ingredient: 'Poivre noir', amount: '1 c.à.s' },
+      { ingredient: 'Huile d\'olive', amount: '4 c.à.s' },
+      { ingredient: 'Persil frais', amount: '1 bouquet' }
+    ],
+    steps: [
+      { title: "Préparation du poulet", description: "Découpez le poulet en morceaux. Faites chauffer l'huile d'olive dans une grande cocotte et faites dorer les morceaux de poulet sur toutes les faces. Réservez." },
+      { title: "Préparation de la sauce", description: "Dans la même cocotte, faites revenir l'oignon émincé et l'ail écrasé. Ajoutez le yaourt et le bouillon de poulet. Remettez les morceaux de poulet, ajoutez la cardamome, la cannelle et les clous de girofle. Salez et poivrez." },
+      { title: "Cuisson", description: "Portez à ébullition, puis réduisez le feu et laissez mijoter pendant 1h30 jusqu'à ce que le poulet soit tendre." },
+      { title: "Préparation du riz", description: "Pendant ce temps, faites cuire le riz basmati selon les instructions du paquet. Faites dorer les amandes et les pignons de pin dans une poêle avec un peu d'huile." },
+      { title: "Service", description: "Disposez le riz sur un grand plat, ajoutez les morceaux de poulet et la sauce. Garnissez d'amandes, de pignons de pin et de persil frais." }
+    ],
+    description: 'Plat traditionnel libanais de poulet mijoté avec du riz et une sauce au yaourt.',
+    body: [
+      {
+        children: [
+          {
+            text: 'Le mansaf est un plat festif traditionnel du Moyen-Orient. Cette version utilise du poulet au lieu de l\'agneau et est servie avec du riz basmati parfumé aux épices.'
+          }
+        ],
+        markDefs: [],
+        style: 'normal'
+      }
+    ],
+    featured: true,
+    relatedProducts: [
+      {
+        _ref: 'product-whole-chicken'
       }
     ]
   }

@@ -117,10 +117,10 @@ const IntroSection: React.FC = () => {
                 alt="Boucherie traditionnelle" 
                 className="rounded-lg shadow-xl w-full h-auto object-cover aspect-[4/3]"
               />
-              {/* Decorative overlay - Repositioned to the right on mobile */}
-              <div className="absolute -bottom-4 right-4 md:-left-4 bg-primary-600 text-white p-4 md:p-6 rounded-lg">
-                <p className="text-lg md:text-xl font-semibold">16 ans</p>
-                <p className="text-sm md:text-base">d'excellence</p>
+              {/* Decorative overlay - Bigger size and positioned to the left */}
+              <div className="absolute -bottom-4 left-4 bg-primary-600 text-white p-5 rounded-lg">
+                <p className="text-xl font-semibold">16 ans</p>
+                <p className="text-base">d'excellence</p>
               </div>
             </div>
           </motion.div>

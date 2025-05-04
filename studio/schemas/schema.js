@@ -9,6 +9,9 @@ import recipe from './documents/recipe'
 import category from './documents/category'
 import product from './documents/product'
 // Import other schemas as needed
+import ingredient from './ingredient'
+import step from './step'
+import blockContent from './blockContent'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -22,5 +25,8 @@ export default createSchema({
     category,
     product,
     // Add other schemas here
+    ingredient,
+    step,
+    blockContent
   ]),
 })

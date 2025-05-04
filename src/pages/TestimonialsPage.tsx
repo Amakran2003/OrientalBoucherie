@@ -6,16 +6,32 @@ import PageHeader from '../components/layout/PageHeader';
 
 const TestimonialsPage: React.FC = () => {
   useEffect(() => {
+    // Scroll to top when page loads
     window.scrollTo(0, 0);
     
-    // Add Featurable bundle script if it doesn't exist
-    if (!document.querySelector('script[src="https://featurable.com/assets/bundle.js"]')) {
-      const script = document.createElement('script');
-      script.src = "https://featurable.com/assets/bundle.js";
-      script.defer = true;
-      script.setAttribute('charset', 'UTF-8');
-      document.body.appendChild(script);
+    // Clean up any existing Featurable elements
+    const existingFeaturable = document.getElementById('featurable-0b8d8f47-c220-4207-889b-73afc2cba77a');
+    if (existingFeaturable) {
+      existingFeaturable.innerHTML = '';
     }
+    
+    // Always add the script to ensure initialization
+    const script = document.createElement('script');
+    script.src = "https://featurable.com/assets/bundle.js";
+    script.defer = true;
+    script.setAttribute('charset', 'UTF-8');
+    
+    // Add the script to the document
+    document.body.appendChild(script);
+    
+    // Clean up on component unmount
+    return () => {
+      // Remove the script when navigating away
+      const scriptElement = document.querySelector('script[src="https://featurable.com/assets/bundle.js"]');
+      if (scriptElement && scriptElement.parentNode) {
+        scriptElement.parentNode.removeChild(scriptElement);
+      }
+    };
   }, []);
 
   return (
@@ -56,8 +72,8 @@ const TestimonialsPage: React.FC = () => {
               </motion.p>
             </div>
             
-            {/* Featurable Widget */}
-            <div id="featurable-0b8d8f47-c220-4207-889b-73afc2cba77a" data-featurable-async></div>
+            {/* Featurable Widget with location code for France */}
+            <div id="featurable-0b8d8f47-c220-4207-889b-73afc2cba77a" data-featurable-async data-location-code="fr"></div>
           </div>
         </section>
       </main>

@@ -29,7 +29,13 @@ export interface Recipe {
   _createdAt: string;
   title: string;
   slug: { current: string };
-  mainImage?: { _ref: string };
+  mainImage?: {
+    _type: string;
+    asset: {
+      _id: string;
+      url: string;
+    };
+  };
   description?: string;
   body?: any[];
   prepTime?: number;
@@ -142,7 +148,13 @@ export async function getAllRecipes(): Promise<Recipe[]> {
       _createdAt,
       title,
       slug,
-      mainImage,
+      mainImage {
+        _type,
+        asset->{
+          _id,
+          url
+        }
+      },
       description,
       prepTime,
       cookTime,
@@ -164,7 +176,13 @@ export async function getFeaturedRecipes(): Promise<Recipe[]> {
       _id,
       title,
       slug,
-      mainImage,
+      mainImage {
+        _type,
+        asset->{
+          _id,
+          url
+        }
+      },
       description,
       publishedAt,
       prepTime,
@@ -185,7 +203,13 @@ export async function getRecipeBySlug(slug: string): Promise<Recipe | null> {
         _createdAt,
         title,
         slug,
-        mainImage,
+        mainImage {
+          _type,
+          asset->{
+            _id,
+            url
+          }
+        },
         description,
         body,
         publishedAt,

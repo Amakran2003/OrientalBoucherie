@@ -72,46 +72,14 @@ export default defineType({
       name: 'ingredients',
       title: 'Ingrédients',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {
-              name: 'ingredient',
-              title: 'Ingrédient',
-              type: 'string',
-            },
-            {
-              name: 'amount',
-              title: 'Quantité',
-              type: 'string',
-            },
-          ],
-        },
-      ],
+      of: [{type: 'ingredient'}],
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'steps',
       title: 'Étapes',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {
-              name: 'title',
-              title: 'Titre',
-              type: 'string',
-            },
-            {
-              name: 'description',
-              title: 'Description',
-              type: 'text',
-            },
-          ],
-        },
-      ],
+      of: [{type: 'step'}],
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
