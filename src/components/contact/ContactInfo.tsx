@@ -46,7 +46,7 @@ const ContactInfo: React.FC = () => {
               href="mailto:contact@loriental.com" 
               className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
             >
-              contact@loriental.com
+              oriental.boucherie18@gmail.com
             </a>
           </div>
         </li>
