@@ -36,6 +36,9 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
+          VITE_SANITY_PROJECT_ID: rrwhrsep
+          VITE_SANITY_DATASET: production
+          VITE_SANITY_API_VERSION: 2023-05-03
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

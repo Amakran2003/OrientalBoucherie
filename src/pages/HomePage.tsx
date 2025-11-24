@@ -15,11 +15,11 @@ const HomePage: React.FC = () => {
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Boucherie Traditionnelle Halal à Vierzon"
         description={siteConfig.siteDescription}
       />
-      
+
       <main>
         <HeroSection />
         <IntroSection />
