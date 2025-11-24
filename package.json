@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "homepage": "https://amakran2003.github.io/OrientalBoucherie",
+  "homepage": "https://boucherieoriental18.fr",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

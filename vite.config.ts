@@ -26,7 +26,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['lucide-react', 'framer-motion', 'react-router-dom', 'react-i18next'],
   },
-  base: process.env.NODE_ENV === 'production' ? '/OrientalBoucherie/' : '/',
+  base: '/',
   build: {
     chunkSizeWarningLimit: 1000, // in kilobytes (1000 = 1 MB)
     cssCodeSplit: true,

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { siteConfig } from '../data';
+import { SEO } from '../components/utils/SEO';
 import HeroSection from '../components/home/HeroSection';
 import IntroSection from '../components/home/IntroSection';
 import ProductCategories from '../components/home/ProductCategories';
@@ -15,10 +15,10 @@ const HomePage: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{siteConfig.siteName} - Boucherie Traditionnelle Halal à Vierzon</title>
-        <meta name="description" content={siteConfig.siteDescription} />
-      </Helmet>
+      <SEO 
+        title="Boucherie Traditionnelle Halal à Vierzon"
+        description={siteConfig.siteDescription}
+      />
       
       <main>
         <HeroSection />
