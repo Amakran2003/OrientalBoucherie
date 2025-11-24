@@ -1,7 +1,7 @@
 export const siteConfig = {
   siteName: 'L\'Oriental',
   siteDescription: 'Votre boucherie traditionnelle à Vierzon depuis 2009, dirigée par Aziz',
-  contactEmail: 'contact@loriental.com',
+  contactEmail: 'oriental.boucherie18@gmail.com',
   contactPhone: '02 48 51 77 78',
   address: 'Vierzon, France',
   socialLinks: {
