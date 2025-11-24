@@ -1,11 +1,10 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Product } from '../../lib/sanityApi';
 import { ProductFilters } from '../../components/products/ProductFilterBar';
 
 export const useProductFilters = (products: Product[], categorySlug?: string) => {
   const [filters, setFilters] = useState<ProductFilters>({
     search: '',
-    priceRange: [0, 1000], // Default range, updated with actual max
     origin: null,
     sortBy: 'name-asc'
   });
@@ -20,24 +19,6 @@ export const useProductFilters = (products: Product[], categorySlug?: string) =>
     });
     return Array.from(originSet).sort();
   }, [products]);
-
-  // Calculate max price from all products
-  const maxPrice = useMemo(() => {
-    const prices = products.map(p => p.price);
-    const max = Math.max(...prices, 0);
-    // Round up to nearest 10 for better UX
-    return Math.ceil(max / 10) * 10;
-  }, [products]);
-
-  // Update price range when max price changes
-  useEffect(() => {
-    if (maxPrice > 0 && filters.priceRange[1] === 1000) {
-      setFilters(prev => ({
-        ...prev,
-        priceRange: [prev.priceRange[0], maxPrice]
-      }));
-    }
-  }, [maxPrice]);
 
   // Filter and sort products based on current filters
   const filteredProducts = useMemo(() => {
@@ -67,12 +48,6 @@ export const useProductFilters = (products: Product[], categorySlug?: string) =>
       );
     }
 
-    // Filter by price range
-    result = result.filter(product => 
-      product.price >= filters.priceRange[0] && 
-      product.price <= filters.priceRange[1]
-    );
-
     // Filter by origin
     if (filters.origin) {
       result = result.filter(product => product.origin === filters.origin);
@@ -80,12 +55,6 @@ export const useProductFilters = (products: Product[], categorySlug?: string) =>
 
     // Sort products
     switch (filters.sortBy) {
-      case 'price-asc':
-        result.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-desc':
-        result.sort((a, b) => b.price - a.price);
-        break;
       case 'name-asc':
         result.sort((a, b) => a.name.localeCompare(b.name));
         break;
@@ -104,7 +73,6 @@ export const useProductFilters = (products: Product[], categorySlug?: string) =>
   const resetFilters = () => {
     setFilters({
       search: '',
-      priceRange: [0, maxPrice],
       origin: null,
       sortBy: 'name-asc'
     });
@@ -114,7 +82,6 @@ export const useProductFilters = (products: Product[], categorySlug?: string) =>
     filters, 
     filteredProducts, 
     origins, 
-    maxPrice, 
     handleFilterChange,
     resetFilters
   };

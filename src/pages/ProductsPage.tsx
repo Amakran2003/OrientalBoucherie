@@ -20,7 +20,6 @@ export default function ProductsPage() {
     filters, 
     filteredProducts, 
     origins, 
-    maxPrice, 
     handleFilterChange,
     resetFilters 
   } = useProductFilters(products, categorySlug);
@@ -55,7 +54,6 @@ export default function ProductsPage() {
         <ProductFilterBar 
           filters={filters} 
           onFilterChange={handleFilterChange}
-          maxPrice={maxPrice}
           origins={origins}
         />
 

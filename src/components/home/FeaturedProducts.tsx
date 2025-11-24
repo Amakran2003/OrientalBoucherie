@@ -126,15 +126,9 @@ export default function FeaturedProducts() {
                   </p>
                 )}
                 
-                <div className="flex justify-between items-center">
-                  <div className="text-lg font-bold text-red-700">
-                    {product.price} €<span className="text-sm text-gray-600 dark:text-gray-400">/{product.unit}</span>
-                  </div>
-                  
-                  {product.origin && (
-                    <div className="text-xs text-gray-500">Origine: {product.origin}</div>
-                  )}
-                </div>
+                {product.origin && (
+                  <div className="text-sm text-gray-500 mt-2">Origine: {product.origin}</div>
+                )}
               </div>
             </motion.div>
           ))}
