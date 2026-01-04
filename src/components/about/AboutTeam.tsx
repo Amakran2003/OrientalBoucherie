@@ -16,7 +16,7 @@ const AboutTeam: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <img 
-              src="public/images/team.png"
+              src="/images/team.png"
               alt={t('about.team.imageAlt')}
               className="rounded-lg shadow-lg w-full h-auto"
             />
