@@ -4,11 +4,6 @@ export const siteConfig = {
   contactEmail: 'oriental.boucherie18@gmail.com',
   contactPhone: '02 48 51 77 78',
   address: 'Vierzon, France',
-  socialLinks: {
-    facebook: 'https://facebook.com/loriental',
-    instagram: 'https://instagram.com/loriental',
-    twitter: 'https://twitter.com/loriental',
-  },
   businessHours: [
     { day: 'Lundi', hours: '08:30 - 12:00 | 15:00 - 19:00' },
     { day: 'Mardi', hours: '08:30 - 12:30 | 15:00 - 19:30' },

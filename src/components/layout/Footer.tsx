@@ -20,35 +20,6 @@ const Footer: React.FC = () => {
             <p className="text-secondary-300 max-w-xs">
               Boucherie traditionnelle halal, qualité et savoir-faire depuis 8 ans.
             </p>
-            <div className="flex space-x-4 pt-2">
-              <a
-                href={siteConfig.socialLinks.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-secondary-300 hover:text-primary-500 transition-colors duration-300"
-                aria-label="Facebook"
-              >
-                <Facebook size={20} />
-              </a>
-              <a
-                href={siteConfig.socialLinks.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-secondary-300 hover:text-primary-500 transition-colors duration-300"
-                aria-label="Instagram"
-              >
-                <Instagram size={20} />
-              </a>
-              <a
-                href={siteConfig.socialLinks.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-secondary-300 hover:text-primary-500 transition-colors duration-300"
-                aria-label="Twitter"
-              >
-                <Twitter size={20} />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}

@@ -16,7 +16,7 @@ const AboutTeam: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <img 
-              src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg"
+              src="/images/about/team.png"
               alt={t('about.team.imageAlt')}
               className="rounded-lg shadow-lg w-full h-auto"
             />
@@ -32,9 +32,6 @@ const AboutTeam: React.FC = () => {
             </h2>
             <p className="text-secondary-700 dark:text-secondary-300 mb-6">
               {t('about.team.description')}
-            </p>
-            <p className="text-secondary-700 dark:text-secondary-300">
-              {t('about.team.mission')}
             </p>
           </motion.div>
         </div>
